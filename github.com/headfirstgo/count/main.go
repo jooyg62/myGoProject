@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/headfirstgo/count/datafile"
 	"log"
+	"sort"
 )
 
 func main() {
@@ -11,5 +12,21 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(lines)
+
+	count := map[string]int{}
+	for _, line := range lines {
+		count[line]++
+	}
+
+	var names []string
+	for name, _ := range count {
+		names = append(names, name)
+	}
+
+	sort.Strings(names)
+	for _, name := range names {
+		fmt.Printf("%s: %d\n", name, count[name])
+	}
+
+	
 }
